@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Les calanques sont-elles ouvertes?</title>
+        <meta name="description" content="Calanques are tiny, beautiful creeks on the Mediterranean sea. Their access can be closed because of weather conditions. Check this site to know if they open."/>
+        <meta name="keywords" content="calanques, callanques, ouverture, fermeture, closed, open, Marseille, Cassis, mer, sea, opening"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{controller.init()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+
+        <p id="text" style="text-align:center; line-height: .3 em;">#{controller.areCalanquesOpen}<br></br>
+        </p>    
+        <p style="text-align: center">
+            <h:outputLabel rendered="#{controller.redFound}" style="text-align:center;font-size: 14px;line-height: 0em;margin: 0px; padding:0px;" value="entre 6h00 et 11h00 le matin ainsi que dans les zones d’accueil du public en forêt toute la journée"/><br/>
+            <h:outputLabel rendered="#{controller.exceptions}" style="text-align:center;font-size: 14px;line-height: .1em;" value="sauf à #{controller.communes}: ces calanques sont totalement fermées."/><br/>
+            <a style="text-align:center;font-size: 12px" href="http://cg13.eway.fr/conditions.php">source</a>
+
+        </p>            
+
+        <script>
+            (function($) {
+
+                $.fn.fitText = function(kompressor, options) {
+
+                    // Setup options
+                    var compressor = kompressor || 1,
+                            settings = $.extend({
+                                'minFontSize': Number.NEGATIVE_INFINITY,
+                                'maxFontSize': Number.POSITIVE_INFINITY
+                            }, options);
+
+                    return this.each(function() {
+
+                        // Store the object
+                        var $this = $(this);
+
+                        // Resizer() resizes items based on the object width divided by the compressor * 10
+                        var resizer = function() {
+                            $this.css('font-size', Math.max(Math.min($this.width() / (compressor * 10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+                        };
+
+                        // Call once to set.
+                        resizer();
+
+                        // Call on resize. Opera debounces their resize by default.
+                        $(window).on('resize.fittext orientationchange.fittext', resizer);
+
+                    });
+
+                };
+
+            })(jQuery);
+            jQuery("#text").fitText();
+        </script>
+        <!-- Start of StatCounter Code for Default Guide -->
+        <script type="text/javascript">
+            //<![CDATA[
+            var sc_project = 9996409;
+            var sc_invisible = 1;
+            var sc_security = "4d3e0ce4";
+            var scJsHost = (("https:" == document.location.protocol) ?
+                    "https://secure." : "http://www.");
+            document.write("<sc" + "ript type='text/javascript' src='" +
+                    scJsHost +
+                    "statcounter.com/counter/counter_xhtml.js'></" + "script>");
+            //]]>
+        </script>
+        <noscript><div class="statcounter"><a title="hits counter"
+                                              href="http://statcounter.com/" class="statcounter"><img
+                        class="statcounter"
+                        src="http://c.statcounter.com/9996409/0/4d3e0ce4/1/"
+                        alt="hits counter" /></a></div></noscript>
+        <!-- End of StatCounter Code for Default Guide -->
+        <br />
+    </h:body>
+</html>
+
